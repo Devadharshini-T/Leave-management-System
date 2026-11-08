@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leave Management System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div><p class="eyebrow">WORKPLACE PORTAL</p><h1>Leave Management</h1><p class="subtitle">A simpler way to manage time off.</p></div>
+    <div class="status"><span class="dot"></span> Secure sign-in demo</div>
+  </header>
+
+  <main>
+    <section id="authView" class="auth-layout">
+      <div class="auth-intro">
+        <span class="round-icon">✦</span>
+        <h2>Welcome back</h2>
+        <p>Sign in to apply for leave, check your balance, or review employee requests.</p>
+        <ul><li>Casual and medical leave</li><li>Leave balance tracking</li><li>Manager approval workflow</li></ul>
+      </div>
+      <div class="panel auth-panel">
+        <div class="tabs">
+          <button class="tab active" data-tab="employeeLogin">Employee login</button>
+          <button class="tab" data-tab="managerLogin">Manager login</button>
+          <button class="tab" data-tab="register">New employee</button>
+        </div>
+        <form id="employeeLogin" class="auth-form">
+          <h2>Employee sign in</h2><p class="muted">Use your registered employee ID.</p>
+          <label>Employee ID<input id="loginEmployeeId" required placeholder="e.g. EMP001" autocomplete="username"></label>
+          <label>Password<input id="loginEmployeePassword" type="password" required placeholder="Enter password" autocomplete="current-password"></label>
+          <button type="submit">Sign in as employee</button>
+        </form>
+        <form id="managerLogin" class="auth-form hidden">
+          <h2>Manager sign in</h2><p class="muted">Manager credentials are configured in the .env file.</p>
+          <label>Username<input id="managerUsername" required placeholder="Manager username" autocomplete="username"></label>
+          <label>Password<input id="managerPassword" type="password" required placeholder="Manager password" autocomplete="current-password"></label>
+          <button type="submit">Sign in as manager</button>
+        </form>
+        <form id="register" class="auth-form hidden">
+          <h2>Create employee account</h2><p class="muted">Register once using a unique employee ID.</p>
+          <label>Employee ID<input id="registerId" required placeholder="e.g. EMP001"></label>
+          <label>Full name<input id="registerName" required placeholder="Your full name" autocomplete="name"></label>
+          <label>Password<input id="registerPassword" type="password" required minlength="6" placeholder="At least 6 characters" autocomplete="new-password"></label>
+          <button type="submit">Create account</button>
+        </form>
+      </div>
+    </section>
+
+    <section id="employeeView" class="hidden">
+      <div class="welcome-row"><div><p class="eyebrow purple">EMPLOYEE DASHBOARD</p><h2>Hi, <span id="employeeNameDisplay">Employee</span> 👋</h2><p class="muted">Your leave balance and application history.</p></div><button class="secondary logout">Log out</button></div>
+      <section class="balance-grid">
+        <article class="balance-card casual"><div class="card-top"><span>Casual Leave</span><span class="badge">CL</span></div><p class="balance" id="clBalance">— <small>days left</small></p><p class="muted">Annual allowance starts at 12 days.</p></article>
+        <article class="balance-card medical"><div class="card-top"><span>Medical Leave</span><span class="badge">ML</span></div><p class="balance" id="mlBalance">— <small>days left</small></p><p class="muted">Annual allowance starts at 10 days.</p></article>
+      </section>
+      <section class="panel">
+        <h2>Apply for leave</h2><p class="muted">Past dates are not allowed. Your manager must approve the request.</p>
+        <form id="leaveForm" class="leave-form">
+          <label>Leave type<select id="leaveType" required><option value="Casual Leave">Casual Leave</option><option value="Medical Leave">Medical Leave</option></select></label>
+          <label>Start date<input type="date" id="startDate" required></label>
+          <label>End date<input type="date" id="endDate" required></label>
+          <label class="wide">Reason<textarea id="reason" rows="3" required placeholder="Enter the reason for your leave..."></textarea></label>
+          <div class="form-footer"><span id="dayCount" class="muted">Select dates to calculate days.</span><button type="submit">Submit application</button></div>
+        </form>
+      </section>
+      <section class="panel"><div class="section-heading"><div><h2>My applications</h2><p class="muted">Check the status of your requests.</p></div><button id="refreshEmployee" class="secondary" type="button">Refresh</button></div>
+        <div class="table-wrap"><table><thead><tr><th>Type</th><th>Dates</th><th>Days</th><th>Reason</th><th>Status</th></tr></thead><tbody id="employeeRows"><tr><td colspan="5" class="empty">No applications yet.</td></tr></tbody></table></div>
+      </section>
+    </section>
+
+    <section id="managerView" class="hidden">
+      <div class="welcome-row"><div><p class="eyebrow purple">MANAGER DASHBOARD</p><h2>Leave approvals</h2><p class="muted">Review requests submitted by employees.</p></div><button class="secondary logout">Log out</button></div>
+      <section class="balance-grid">
+        <article class="balance-card"><div class="card-top"><span>Total requests</span><span class="badge">ALL</span></div><p class="balance" id="totalCount">0</p></article>
+        <article class="balance-card"><div class="card-top"><span>Awaiting decision</span><span class="badge">PENDING</span></div><p class="balance" id="pendingCount">0</p></article>
+      </section>
+      <section class="panel"><div class="section-heading"><div><h2>All leave requests</h2><p class="muted">Approve or reject pending requests below.</p></div><button id="refreshManager" class="secondary" type="button">Refresh requests</button></div>
+        <div class="table-wrap"><table><thead><tr><th>Employee</th><th>Type</th><th>Dates</th><th>Days</th><th>Reason</th><th>Status / action</th></tr></thead><tbody id="managerRows"><tr><td colspan="6" class="empty">No requests found.</td></tr></tbody></table></div>
+      </section>
+    </section>
+    <div id="message" role="status" aria-live="polite"></div>
+  </main>
+  <footer>Leave Management System · Employee and Manager Portal</footer>
+  <script src="app.js"></script>
+</body>
+</html>

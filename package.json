@@ -1,0 +1,14 @@
+{
+  "name": "leave-management-system",
+  "version": "2.0.0",
+  "description": "Leave management system with employee and manager authentication",
+  "main": "server.js",
+  "scripts": { "start": "node server.js", "dev": "node server.js" },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-session": "^1.18.1",
+    "mongoose": "^8.9.5"
+  }
+}
